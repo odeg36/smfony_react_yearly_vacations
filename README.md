@@ -92,10 +92,3 @@ Architecture & Design Patterns
 - **Error Handling**: `EmployeeFactory` throws `RuntimeException`s for invalid JSON or missing files. The command catches these exceptions and displays friendly error messages.
 
 This architecture ensures a clean separation of concerns, high testability, and ease of maintenance.
-
-
----
-
-## Contact
-
-For any issues, please open an issue or contact the maintainer.
