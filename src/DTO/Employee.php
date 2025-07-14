@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\DTO;
 
 use DateTimeImmutable;
-use App\DTO\Contract;
 
 class Employee
 {

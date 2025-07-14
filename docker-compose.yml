@@ -1,16 +1,10 @@
-version: '3'
+version: '3.8'
+
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: digitalocean.com/php
+    build: .
     container_name: yearly_vacations
-    restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
     volumes:
       - ./:/var/www
+    working_dir: /var/www
+    tty: true

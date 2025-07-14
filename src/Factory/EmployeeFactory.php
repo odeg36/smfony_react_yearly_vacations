@@ -4,38 +4,36 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use DateTimeImmutable;
-use RuntimeException;
 use App\DTO\Contract;
 use App\DTO\Employee;
+use DateTimeImmutable;
+use RuntimeException;
 
 class EmployeeFactory
 {
     /**
-     * @param string $jsonFile Path to the JSON file
-     *
      * @return Employee[]
+     * @throws RuntimeException
      */
-    public function createFromJsonFile(string $jsonFile): array
+    public function createFromJsonFile(string $filePath): array
     {
-        if (!file_exists($jsonFile)) {
-            throw new RuntimeException("File not found: {$jsonFile}");
+        if (!file_exists($filePath)) {
+            throw new RuntimeException("Employee file not found: {$filePath}");
         }
 
-        $jsonData = file_get_contents($jsonFile);
-        if (false === $jsonData) {
-            throw new RuntimeException("Cannot read file: {$jsonFile}");
-        }
-
-        $employeesArray = json_decode($jsonData, true, 512, JSON_THROW_ON_ERROR);
+        $json = file_get_contents($filePath);
+        $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
         $employees = [];
-        foreach ($employeesArray as $empData) {
+        foreach ($data as $item) {
+
             $employees[] = new Employee(
-                $empData['name'],
-                new DateTimeImmutable($empData['dateOfBirth']),
-                new Contract(new DateTimeImmutable($empData['contractStartDate'])),
-                $empData['specialMinimumVacationDays'] ?? null
+                $item['name'],
+                new DateTimeImmutable($item['dateOfBirth']),
+                new Contract(
+                    new DateTimeImmutable($item['contractStartDate']),
+                ),
+                $item['specialMinimumVacationDays'] ?? null
             );
         }
 

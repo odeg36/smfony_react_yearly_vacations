@@ -13,6 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
+use RuntimeException;
 
 class CalculateVacationCommandTest extends TestCase
 {
@@ -98,7 +99,7 @@ class CalculateVacationCommandTest extends TestCase
 
     public function testExecuteThrowsExceptionWhenJsonFileNotFound(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('File not found');
 
         $year = 2025;
@@ -106,7 +107,7 @@ class CalculateVacationCommandTest extends TestCase
         $this->employeeFactory
             ->expects($this->once())
             ->method('createFromJsonFile')
-            ->willThrowException(new \RuntimeException('File not found'));
+            ->willThrowException(new RuntimeException('File not found'));
 
         $application = new Application();
         $application->add($this->createCommand());

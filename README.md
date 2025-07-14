@@ -1,72 +1,95 @@
-# Install and commands
+# Vacation Calculator CLI Tool
 
-## Setup with Docker
+## Description
 
-1. Build the Docker image:
+This CLI tool calculates yearly vacation days for employees based on their contract details, date of birth, and special contract conditions.
 
-```bash
-docker-compose up -d --build
-```
-2. composer install for the vendor
-```bash
-# perhaps will be pretty slow or even stopped mid-way, if is the case, please try running locally: composer install
-docker-compose run --rm --entrypoint composer app install
-```
+---
 
-## Run calculation command
-```bash
-docker-compose run --rm app app:calculate-vacation 2025
-```
+## Setup
 
-## Test and best practices commands
-```bash
-# I tried to cover all escenarios I could think of 
-docker-compose run --rm --entrypoint php app vendor/bin/phpunit tests
+**Requirements:** Docker and Docker Compose installed.
 
-# I included php-cs-fixer, php stan and phpmd to check that best practices are used and validated
-docker-compose run --rm --entrypoint php app vendor/bin/php-cs-fixer fix --allow-risky=yes
-docker-compose run --rm --entrypoint php app vendor/bin/phpstan analyse src
-docker-compose run --rm --entrypoint php app vendor/bin/phpmd src json cleancode,codesize,naming
-```
+1. Clone the repository and navigate to its root directory.  
+2. Build and start the container:  
+   `docker-compose build`  
+   `docker-compose run --rm app composer install`
+3. Run the application:  
+   `docker compose run --rm app php bin/console app:calculate-vacation 2025`
 
-## The employee list is stored in assets/employees.json:
-```json
+---
+
+## Usage
+
+Calculate vacation days for a given year:  
+`php bin/console app:calculate-vacation <year>`
+
+**Example:**  
+`php bin/console app:calculate-vacation 2025`
+
+---
+
+## Running Tests
+
+`docker compose run --rm app composer test`
+
+---
+
+## Code Quality Tools
+
+- Code Style Fixer:  
+  ``docker compose run --rm app composer fix`
+
+
+- Code Style Fixer:  
+  ``docker compose run --rm app composer fix`
+- Code Style Analyzer:  
+  ``docker compose run --rm app composer psalm`
+  ``docker compose run --rm app composer md`
+  ``docker compose run --rm app composer stan`
+
+---
+
+## Assumptions & Clarifications
+
+- Contract start dates on the 1st or 15th count as full months for proration.  
+- Contracts may have an optional end date, restricting the employment period.  
+- Employees under 18 years old at the start of the year are skipped with a warning.  
+- Special contract minimum vacation days override the base minimum before proration.  
+- Additional vacation days are granted for employees aged 30+ as one day every 5 full years employed as of Dec 31 of the given year.  
+- Output lists employees in the order they appear in the input JSON.  
+- If `assets/employees.json` is missing or malformed, a clear error will be displayed.
+
+---
+
+## Adding New Employees
+
+Add new employees to `assets/employees.json` using the following format:
+
 [
   {
-    "name": "Hans Müller",
-    "dateOfBirth": "1970-12-30",
-    "contractStartDate": "2001-01-01"
-  },
-  {
-    "name": "Peter Klever",
-    "dateOfBirth": "1991-07-12",
-    "contractStartDate": "2016-05-15",
-    "specialMinimumVacationDays": 27
+    "name": "John Doe",
+    "dateOfBirth": "1985-05-10",
+    "contractStartDate": "2020-01-01",
+    "contractEndDate": null,
+    "specialMinimumVacationDays": 30
   }
 ]
-```
 
-## DTOs
-- `Employee` and `Contract` are implemented as immutable DTOs in `App\DTO`.
-- DTOs encapsulate business data and prevent unintended mutation.
-- All input is mapped to DTOs before processing.
+---
 
-## Factory Pattern
+## Project Structure Notes
 
-- `EmployeeFactory` in `App\Factory` is responsible for loading and transforming raw JSON input into structured `Employee` and `Contract` DTOs.
-- This separates file I/O and parsing logic from business logic.
-- Promotes single responsibility and enables easy test injection of employee lists.
+This project uses:
 
+- DTOs (`Employee`, `Contract`) to encapsulate business data.  
+- A Factory Pattern to parse JSON and produce DTO objects.  
+- A Service to calculate vacation logic in a testable and reusable way.  
+- Symfony Console component for the CLI application.  
+- Exception handling for invalid scenarios (e.g. underage employees, missing files, etc.).
 
+---
 
-## Assumptions:
-* Employees aged 30+ earn +1 day every full 5 years of employment
-* Employees starting during the year receive vacation prorated by full months worked. Only contracts starting on the 1st or 15th of a month count full months.
-* I added an extra validation for underage employees. (just for adding an extra validation)
-* Employees are loaded from a local JSON file, not from a database
-* Docker support is included but optional.
+## Contact
 
-## Ambiguities:
-* As the contracts may start on 1th or 15th of the month, is not clear if the prorated calculation for a month count as full even if the employee starts on 15th.
-* There is no definition of contract end date was made, the default value was left as {year}-12-31 for the prorated calculation
-* No exact format of data output was defined, so a plain text is displayed for each employee (perhaps a JSON response could be better or sorting the employees list)
+For any issues, please open an issue or contact the maintainer.

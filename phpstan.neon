@@ -1,7 +1,4 @@
 parameters:
-    level: 8
-    paths:
-        - src
-        - tests
-    excludePaths:
-        - ./tests/_support
+  level: max
+  paths:
+    - src

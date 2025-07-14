@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="4"
+    resolveFromConfigFile="true"
+    findUnusedCode="true"
+    findUnusedVariables="true"
+    allowMissingBaseline="true"
+>
+    <projectFiles>
+        <directory name="src" />
+    </projectFiles>
+
+    <fileExtensions>
+        <extension name=".php" />
+    </fileExtensions>
+
+    <issueHandlers>
+        <MissingReturnType errorLevel="info" />
+        <MissingParamType errorLevel="info" />
+        <MissingPropertyType errorLevel="info" />
+    </issueHandlers>
+
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin" />
+    </plugins>
+
+    <customErrorLevels>
+        <UndefinedClass errorLevel="error" />
+        <MixedAssignment errorLevel="error" />
+        <MixedArgument errorLevel="error" />
+        <MixedReturnStatement errorLevel="error" />
+    </customErrorLevels>
+</psalm>
