@@ -62,7 +62,7 @@ Calculate vacation days for a given year:
 ## Adding New Employees
 
 Add new employees to `assets/employees.json` using the following format:
-
+``` json
 [
   {
     "name": "John Doe",
@@ -72,7 +72,7 @@ Add new employees to `assets/employees.json` using the following format:
     "specialMinimumVacationDays": 30
   }
 ]
-
+```
 ---
 
 ## Project Structure Notes
