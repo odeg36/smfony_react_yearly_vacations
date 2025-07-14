@@ -9,6 +9,7 @@ use App\Service\Interface\VacationCalculatorInterface;
 use App\Exception\VacationCalculationException;
 use DateTimeImmutable;
 
+/** @psalm-suppress UnusedClass */
 final class VacationCalculatorService implements VacationCalculatorInterface
 {
     public function calculateVacationDays(Employee $employee, int $year): int
