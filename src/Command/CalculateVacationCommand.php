@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Exception\VacationCalculationException;
-use App\Factory\EmployeeFactory;
-use App\Service\Interface\VacationCalculatorInterface;
+use App\Interface\EmployeeFactoryInterface;
+use App\Interface\VacationCalculatorInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +20,7 @@ final class CalculateVacationCommand extends Command
 
     public function __construct(
         private VacationCalculatorInterface $vacationCalcService,
-        private EmployeeFactory $employeeFactory,
+        private EmployeeFactoryInterface $employeeFactory,
     ) {
         parent::__construct();
     }

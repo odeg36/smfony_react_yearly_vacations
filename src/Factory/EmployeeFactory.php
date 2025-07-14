@@ -6,10 +6,12 @@ namespace App\Factory;
 
 use App\DTO\Employee;
 use App\DTO\Contract;
+use App\Interface\EmployeeFactoryInterface;
 use DateTimeImmutable;
 use RuntimeException;
 
-final class EmployeeFactory
+/** @psalm-suppress UnusedClass */
+final class EmployeeFactory implements EmployeeFactoryInterface
 {
     /**
      * @param string $filePath

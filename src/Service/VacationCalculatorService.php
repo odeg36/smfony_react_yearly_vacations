@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\DTO\Employee;
-use App\Service\Interface\VacationCalculatorInterface;
+use App\Interface\VacationCalculatorInterface;
 use App\Exception\VacationCalculationException;
 use DateTimeImmutable;
 

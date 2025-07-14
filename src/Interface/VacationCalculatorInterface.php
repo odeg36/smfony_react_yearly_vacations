@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Interface;
+namespace App\Interface;
 
 use App\DTO\Employee;
 

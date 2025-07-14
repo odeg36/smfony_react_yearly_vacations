@@ -77,13 +77,22 @@ Add new employees to `assets/employees.json` using the following format:
 
 ## Project Structure Notes
 
-This project uses:
+Architecture & Design Patterns
 
-- DTOs (`Employee`, `Contract`) to encapsulate business data.  
-- A Factory Pattern to parse JSON and produce DTO objects.  
-- A Service to calculate vacation logic in a testable and reusable way.  
-- Symfony Console component for the CLI application.  
-- Exception handling for invalid scenarios (e.g. underage employees, missing files, etc.).
+- **DTOs (Data Transfer Objects)**: The `Employee` and `Contract` classes encapsulate input data in a strongly typed way. This promotes validation and ensures each part of the application communicates with typed objects instead of raw arrays.
+
+- **Factory Pattern**: `EmployeeFactory` reads a JSON file and transforms each entry into an `Employee` DTO. This decouples raw data handling from application logic and centralizes transformation.
+
+- **Service Layer**: `VacationCalculatorService` is responsible for computing the number of vacation days based on the business rules. It receives DTOs and returns values, keeping it pure and easily testable.
+
+- **Interface Abstraction**: Both the calculator (`VacationCalculatorInterface`) and the factory (`EmployeeFactoryInterface`) are designed with interfaces to improve testability and flexibility. This allows for mocking and better dependency injection.
+
+- **Command Layer**: The `CalculateVacationCommand` class handles the CLI interaction. It uses the service and factory to read input, execute business logic, and display the result.
+
+- **Error Handling**: `EmployeeFactory` throws `RuntimeException`s for invalid JSON or missing files. The command catches these exceptions and displays friendly error messages.
+
+This architecture ensures a clean separation of concerns, high testability, and ease of maintenance.
+
 
 ---
 

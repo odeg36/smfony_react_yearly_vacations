@@ -7,8 +7,8 @@ namespace App\Tests\Command;
 use App\Command\CalculateVacationCommand;
 use App\DTO\Contract;
 use App\DTO\Employee;
-use App\Factory\EmployeeFactory;
-use App\Service\Interface\VacationCalculatorInterface;
+use App\Interface\EmployeeFactoryInterface;
+use App\Interface\VacationCalculatorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
@@ -18,12 +18,12 @@ use RuntimeException;
 class CalculateVacationCommandTest extends TestCase
 {
     private VacationCalculatorInterface&MockObject $vacationCalculatorService;
-    private EmployeeFactory&MockObject $employeeFactory;
+    private EmployeeFactoryInterface&MockObject $employeeFactory;
 
     protected function setUp(): void
     {
         $this->vacationCalculatorService = $this->createMock(VacationCalculatorInterface::class);
-        $this->employeeFactory = $this->createMock(EmployeeFactory::class);
+        $this->employeeFactory = $this->createMock(EmployeeFactoryInterface::class);
     }
 
     private function createCommand(): CalculateVacationCommand
