@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Hans Müller",
+    "dateOfBirth": "1970-12-30",
+    "contractStartDate": "2001-01-01",
+    "specialMinimumVacationDays": null
+  },
+  {
+    "name": "Angelika Fringe",
+    "dateOfBirth": "1976-06-09",
+    "contractStartDate": "2001-01-15",
+    "specialMinimumVacationDays": null
+  },
+  {
+    "name": "Peter Klever",
+    "dateOfBirth": "1991-07-12",
+    "contractStartDate": "2016-05-15",
+    "specialMinimumVacationDays": 27
+  },
+  {
+    "name": "Marina Helter",
+    "dateOfBirth": "1970-01-26",
+    "contractStartDate": "2018-01-15",
+    "specialMinimumVacationDays": null
+  },
+  {
+    "name": "Sepp Meier",
+    "dateOfBirth": "1980-05-23",
+    "contractStartDate": "2017-12-01",
+    "specialMinimumVacationDays": null
+  }
+]
