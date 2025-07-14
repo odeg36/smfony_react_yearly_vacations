@@ -38,15 +38,12 @@ Calculate vacation days for a given year:
 ## Code Quality Tools
 
 - Code Style Fixer:  
-  ``docker compose run --rm app composer fix`
-
-
-- Code Style Fixer:  
+  ``docker compose run --rm app composer psalm-alter`
   ``docker compose run --rm app composer fix`
 - Code Style Analyzer:  
-  ``docker compose run --rm app composer psalm`
-  ``docker compose run --rm app composer md`
+  ``docker compose run --rm app composer psalm-check`
   ``docker compose run --rm app composer stan`
+  ``docker compose run --rm app composer md`
 
 ---
 

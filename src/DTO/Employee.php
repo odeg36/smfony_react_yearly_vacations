@@ -6,7 +6,7 @@ namespace App\DTO;
 
 use DateTimeImmutable;
 
-class Employee
+final class Employee
 {
     public function __construct(
         public readonly string $name,

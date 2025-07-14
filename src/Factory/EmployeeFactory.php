@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Factory;
 
-use App\DTO\Contract;
 use App\DTO\Employee;
+use App\DTO\Contract;
 use DateTimeImmutable;
 use RuntimeException;
 
-class EmployeeFactory
+final class EmployeeFactory
 {
     /**
+     * @param string $filePath
      * @return Employee[]
      * @throws RuntimeException
      */
@@ -22,21 +23,47 @@ class EmployeeFactory
         }
 
         $json = file_get_contents($filePath);
+        if ($json === false) {
+            throw new RuntimeException("Failed to read employee file: {$filePath}");
+        }
+
         $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
-        $employees = [];
-        foreach ($data as $item) {
+        if (!is_array($data)) {
+            throw new RuntimeException("Invalid JSON structure in employee file.");
+        }
 
-            $employees[] = new Employee(
-                $item['name'],
-                new DateTimeImmutable($item['dateOfBirth']),
-                new Contract(
-                    new DateTimeImmutable($item['contractStartDate']),
-                ),
-                $item['specialMinimumVacationDays'] ?? null
-            );
+        $employees = [];
+
+        foreach ($data as $row) {
+            $employees[] = $this->createEmployeeFromArray($row);
         }
 
         return $employees;
+    }
+
+    /**
+     * @param array{
+     *     name: string,
+     *     dateOfBirth: string,
+     *     contractStartDate: string,
+     *     specialMinimumVacationDays?: int|string|null
+     * } $data
+     */
+    public function createEmployeeFromArray(array $data): Employee
+    {
+        $specialDays = null;
+        if (isset($data['specialMinimumVacationDays'])) {
+            $specialDays = is_numeric($data['specialMinimumVacationDays'])
+                ? (int) $data['specialMinimumVacationDays']
+                : null;
+        }
+
+        return new Employee(
+            $data['name'],
+            new DateTimeImmutable($data['dateOfBirth']),
+            new Contract(new DateTimeImmutable($data['contractStartDate'])),
+            $specialDays
+        );
     }
 }

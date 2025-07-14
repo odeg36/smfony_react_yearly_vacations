@@ -6,6 +6,6 @@ namespace App\Exception;
 
 use Exception;
 
-class VacationCalculationException extends Exception
+final class VacationCalculationException extends Exception
 {
 }

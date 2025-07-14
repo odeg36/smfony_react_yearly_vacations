@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.12.1@e71404b0465be25cf7f8a631b298c01c5ddd864f">
+  <file src="vendor/symfony/framework-bundle/Kernel/MicroKernelTrait.php">
+    <LessSpecificImplementedReturnType>
+      <code><![CDATA[iterable]]></code>
+    </LessSpecificImplementedReturnType>
+    <ParentNotFound>
+      <code><![CDATA[parent::class]]></code>
+    </ParentNotFound>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[setCurrentDir]]></code>
+    </UndefinedInterfaceMethod>
+    <UnusedParam>
+      <code><![CDATA[$builder]]></code>
+      <code><![CDATA[$loader]]></code>
+    </UnusedParam>
+  </file>
+</files>

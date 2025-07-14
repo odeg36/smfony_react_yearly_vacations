@@ -6,7 +6,7 @@ namespace App\DTO;
 
 use DateTimeImmutable;
 
-class Contract
+final class Contract
 {
     public function __construct(
         public readonly DateTimeImmutable $startDate,
