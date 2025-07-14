@@ -36,6 +36,7 @@
 /web/uploads/
 
 # PHPUnit
+/.phpunit.cache
 /app/phpunit.xml
 /phpunit.xml
 
